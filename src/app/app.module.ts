@@ -11,8 +11,10 @@ import { LoginComponent } from './components/security/login/login.component';
 import { UserService } from './services/user.service';
 import { SharedService } from './services/shared.service';
 import { TicketService } from './services/ticket.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthInterceptor } from './components/security/auth.interceptor';
+import { AuthGuard } from './components/security/auth.guard';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,14 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AppRoutingModule,
     HttpClientModule
+    
   ],
-  providers: [UserService, SharedService, TicketService],
+  providers: [UserService, SharedService, TicketService, AuthGuard,
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
