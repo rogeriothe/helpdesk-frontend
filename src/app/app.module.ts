@@ -8,6 +8,11 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/security/login/login.component';
+import { UserService } from './services/user.service';
+import { SharedService } from './services/shared.service';
+import { TicketService } from './services/ticket.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,9 +25,11 @@ import { LoginComponent } from './components/security/login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserService, SharedService, TicketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
