@@ -5,8 +5,6 @@ import { DialogService } from 'src/app/dialog.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { ResponseApi } from 'src/app/model/response-api';
-import { type } from 'os';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Component({
@@ -72,6 +70,30 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  setNextPage(event:any){
+    event.preventDefault(); //evita reload na tela
+    if(this.page + 1 < this.pages.length){
+      this.page = this.page + 1;
+      this.findAll(this.page, this.count);
+
+    }
+  }
+
+  setPreviusPage(event:any){
+    event.preventDefault(); 
+    if(this.page > 0){
+      this.page = this.page - 1;
+      this.findAll(this.page, this.count);
+      
+    }
+  }
+
+  setPage(i,event:any){
+    event.preventDefault(); 
+    this.page = i; //page number
+    this.findAll(this.page, this.count);
+      
+  }
 
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
